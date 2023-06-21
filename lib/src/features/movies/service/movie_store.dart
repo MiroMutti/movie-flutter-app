@@ -36,7 +36,6 @@ abstract class _MovieStore with Store {
       loading = false;
       loaded = true;
       error = '';
-      //allMovies.isNotEmpty ? list : throw ();
     } catch (e) {
       debugPrint('e get $e');
       error = e.toString();

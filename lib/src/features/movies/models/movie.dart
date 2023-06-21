@@ -1,27 +1,24 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'dart:core';
 
-part 'movie.g.dart';
-
-@JsonSerializable()
 class Movie {
-  String? id;
-  String? title;
-  String? year;
-  List<String>? genres;
-  List<int>? ratings;
-  String? poster;
-  String? contentRating;
-  String? duration;
-  String? releaseDate;
-  int? averageRating;
-  String? originalTitle;
-  String? storyline;
-  List<String>? actors;
-  double? imdbRating;
-  String? posterurl;
+  final String id;
+  final String? title;
+  final String? year;
+  final List<String>? genres;
+  final List<int?>? ratings;
+  final String? poster;
+  final String? contentRating;
+  final String? duration;
+  final String? releaseDate;
+  final double? averageRating;
+  final String? originalTitle;
+  final String? storyline;
+  final List<String>? actors;
+  final double? imdbRating;
+  final String? posterurl;
 
-  Movie({
-    this.id,
+  const Movie({
+    required this.id,
     this.title,
     this.year,
     this.genres,
@@ -38,66 +35,34 @@ class Movie {
     this.posterurl,
   });
 
-  @override
-  String toString() {
-    return 'Movie(id: $id, title: $title, year: $year, genres: $genres, ratings: $ratings, poster: $poster, contentRating: $contentRating, duration: $duration, releaseDate: $releaseDate, averageRating: $averageRating, originalTitle: $originalTitle, storyline: $storyline, actors: $actors, imdbRating: $imdbRating, posterurl: $posterurl)';
-  }
+  factory Movie.fromJson(Map<String, dynamic> json) {
+    final List<int> ratingsList = List<int>.from(json['ratings']);
+    final double averageRating = ratingsList.isNotEmpty
+        ? ratingsList.reduce((a, b) => a + b) / ratingsList.length
+        : 0.0;
 
-  factory Movie.fromJson(Map<String, dynamic> json) => _$MovieFromJson(json);
-
-  Map<String, dynamic> toJson() => _$MovieToJson(this);
-
-  Movie copyWith({
-    String? id,
-    String? title,
-    String? year,
-    List<String>? genres,
-    List<int>? ratings,
-    String? poster,
-    String? contentRating,
-    String? duration,
-    String? releaseDate,
-    int? averageRating,
-    String? originalTitle,
-    String? storyline,
-    List<String>? actors,
-    double? imdbRating,
-    String? posterurl,
-  }) {
     return Movie(
-      id: id ?? this.id,
-      title: title ?? this.title,
-      year: year ?? this.year,
-      genres: genres ?? this.genres,
-      ratings: ratings ?? this.ratings,
-      poster: poster ?? this.poster,
-      contentRating: contentRating ?? this.contentRating,
-      duration: duration ?? this.duration,
-      releaseDate: releaseDate ?? this.releaseDate,
-      averageRating: averageRating ?? this.averageRating,
-      originalTitle: originalTitle ?? this.originalTitle,
-      storyline: storyline ?? this.storyline,
-      actors: actors ?? this.actors,
-      imdbRating: imdbRating ?? this.imdbRating,
-      posterurl: posterurl ?? this.posterurl,
+      id: json['id'] as String,
+      title: json['title'] as String?,
+      year: json['year'] as String?,
+      genres:
+          (json['genres'] as List<dynamic>).map((e) => e as String).toList(),
+      ratings: (json['ratings'] as List<dynamic>)
+          .map((e) => e is String ? int.tryParse(e) ?? 0 : e as int)
+          .toList(),
+      poster: json['poster'] as String?,
+      contentRating: json['contentRating'] as String?,
+      duration: json['duration'] as String?,
+      releaseDate: json['releaseDate'] as String?,
+      averageRating: averageRating,
+      originalTitle: json['originalTitle'] as String?,
+      storyline: json['storyline'] as String?,
+      actors:
+          (json['actors'] as List<dynamic>?)?.map((e) => e as String).toList(),
+      imdbRating: json['imdbRating'] is String
+          ? double.tryParse(json['imdbRating']) ?? 0.0
+          : json['imdbRating'] as double,
+      posterurl: json['posterurl'] as String?,
     );
   }
-
-  @override
-  int get hashCode =>
-      id.hashCode ^
-      title.hashCode ^
-      year.hashCode ^
-      genres.hashCode ^
-      ratings.hashCode ^
-      poster.hashCode ^
-      contentRating.hashCode ^
-      duration.hashCode ^
-      releaseDate.hashCode ^
-      averageRating.hashCode ^
-      originalTitle.hashCode ^
-      storyline.hashCode ^
-      actors.hashCode ^
-      imdbRating.hashCode ^
-      posterurl.hashCode;
 }

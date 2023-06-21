@@ -3,13 +3,13 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_app/src/features/movies/presentation/all_movies_page.dart';
 import 'package:movie_app/src/features/movies/service/movie_store.dart';
 import 'package:movie_app/src/features/settings/service/app_settings_store.dart';
 import 'package:movie_app/src/localization/l10n/app_localizations.dart';
 import 'package:provider/provider.dart';
 
 import 'authentication/presentation/user_screen.dart';
+import 'movies/presentation/pages/all_movies_page.dart';
 import 'watch_list/presentation/watch_list.dart';
 
 final GlobalKey<ScaffoldState> homeScaffoldKey = GlobalKey<ScaffoldState>();

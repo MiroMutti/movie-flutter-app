@@ -22,7 +22,7 @@ abstract class _AppStore with Store {
 
   @action
   Future<void> loadSettings() async {
-    _themeMode = await settingsService.themeMode();
+    _themeMode = settingsService.themeMode;
   }
 
   @action

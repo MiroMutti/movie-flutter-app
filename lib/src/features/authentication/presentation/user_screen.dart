@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 @RoutePage()
 class ProfileScreen extends StatefulWidget {
@@ -12,6 +13,14 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Placeholder(
+      strokeWidth: 0,
+      child: Center(
+        child: Text(
+          'Under constructions',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
   }
 }

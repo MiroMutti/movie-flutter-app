@@ -7,6 +7,14 @@ class WatchListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Placeholder(
+      strokeWidth: 0,
+      child: Center(
+        child: Text(
+          'Under constructions',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+      ),
+    );
   }
 }

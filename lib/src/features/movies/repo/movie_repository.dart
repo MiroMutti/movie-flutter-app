@@ -9,18 +9,16 @@ class MovieRepository {
   final String moviesUrl =
       'http://raw.githubusercontent.com/FEND16/movie-json-data/master/json/movies-coming-soon.json';
   Future<List<Movie>> fetchAllMovies(http.Client client) async {
-    final response = await client.get(Uri.parse(moviesUrl));
-
-    return compute(parseMovies, response.body);
-
-    // if (response.statusCode == 200) {
-    //   List<Movie> movies = (json.decode(response.body) as List)
-    //       .map((data) => Movie.fromJson(data))
-    //       .toList();
-    //   return movies;
-    // } else {
-    //   throw Exception('Failed to load movies');
-    // }
+    try {
+      final response = await client.get(Uri.parse(moviesUrl));
+      List<Movie> movies;
+      (response.statusCode == 200)
+          ? movies = await compute(parseMovies, response.body)
+          : throw Exception('Failed to load movies');
+      return movies;
+    } catch (error) {
+      Error.throwWithStackTrace(error, StackTrace.current);
+    }
   }
 
   List<Movie> parseMovies(String responseBody) {

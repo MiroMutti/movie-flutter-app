@@ -5,12 +5,11 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:movie_app/src/common_widgets/no_data.dart';
 import 'package:movie_app/src/features/movies/presentation/movies_list.dart';
 import 'package:movie_app/src/features/settings/service/app_settings_store.dart';
-import 'package:movie_app/src/routing/app_router.gr.dart';
 import 'package:movie_app/src/utils/styles.dart';
 import 'package:provider/provider.dart';
 
-import '../../../localization/l10n/app_localizations.dart';
-import '../service/movie_store.dart';
+import '../../../../localization/l10n/app_localizations.dart';
+import '../../service/movie_store.dart';
 
 @RoutePage<dynamic>()
 class AllMoviesPage extends StatefulWidget {
@@ -21,7 +20,7 @@ class AllMoviesPage extends StatefulWidget {
 }
 
 class _AllMoviesPageState extends State<AllMoviesPage> {
-  late AppStore appSettingsStore;
+  AppStore? appSettingsStore;
   MovieStore? movieStore;
 
   @override
@@ -29,6 +28,7 @@ class _AllMoviesPageState extends State<AllMoviesPage> {
     super.didChangeDependencies();
     movieStore ??= Provider.of<MovieStore>(context);
     movieStore?.getAllMovies();
+    appSettingsStore ??= Provider.of<AppStore>(context);
   }
 
   Widget _buildLoadingIndicator() {
@@ -68,35 +68,24 @@ class _AllMoviesPageState extends State<AllMoviesPage> {
           floating: true,
           expandedHeight: MediaQuery.of(context).size.height / 3,
           flexibleSpace: FlexibleSpaceBar(
+            centerTitle: true,
             background: Image.asset(
               'assets/images/header.png',
               fit: BoxFit.cover,
             ),
             title: Text(
               S.of(context).movieTime,
-              style: const TextStyle(
-                  color: Color.fromARGB(234, 255, 255, 255),
-                  fontWeight: FontWeight.w700),
+              style: Theme.of(context).textTheme.headlineLarge,
             ),
           ),
-          actions: [
-            IconButton(
-              icon: const Icon(
-                Icons.settings_outlined,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                appSettingsStore =
-                    Provider.of<AppStore>(context, listen: false);
-                appSettingsStore.loadSettings();
-
-                context.router
-                    .push(SettingsRoute(appSettingsStore: appSettingsStore));
-              },
-            ),
-          ],
+          // actions: [
+          //   IconButton.filled(
+          //       onPressed: () => context.router
+          //           .push(SettingsRoute(appSettingsStore: appSettingsStore!)),
+          //       icon: Icon(CupertinoIcons.settings))
+          // ],
         ),
-        SliverPadding(padding: EdgeInsets.only(top: 24)),
+        const SliverPadding(padding: EdgeInsets.only(top: 24)),
         Observer(builder: (BuildContext context) {
           return movieStore!.loading
               ? _buildLoadingIndicator()

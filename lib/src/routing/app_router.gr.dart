@@ -9,14 +9,15 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:auto_route/auto_route.dart' as _i7;
+import 'package:flutter/cupertino.dart' as _i10;
 import 'package:flutter/material.dart' as _i8;
 import 'package:movie_app/src/features/authentication/presentation/user_screen.dart'
     as _i5;
 import 'package:movie_app/src/features/home.dart' as _i2;
-import 'package:movie_app/src/features/movies/models/movie.dart' as _i10;
-import 'package:movie_app/src/features/movies/presentation/all_movies_page.dart'
+import 'package:movie_app/src/features/movies/models/movie.dart' as _i11;
+import 'package:movie_app/src/features/movies/presentation/pages/all_movies_page.dart'
     as _i4;
-import 'package:movie_app/src/features/movies/presentation/movie_details_page.dart'
+import 'package:movie_app/src/features/movies/presentation/pages/movie_details_page.dart'
     as _i3;
 import 'package:movie_app/src/features/settings/presentation/settings_page.dart'
     as _i1;
@@ -133,8 +134,8 @@ class HomeRoute extends _i7.PageRouteInfo<void> {
 /// [_i3.MovieDetailsPage]
 class MovieDetailsRoute extends _i7.PageRouteInfo<MovieDetailsRouteArgs> {
   MovieDetailsRoute({
-    _i8.Key? key,
-    required _i10.Movie movie,
+    _i10.Key? key,
+    required _i11.Movie movie,
     List<_i7.PageRouteInfo>? children,
   }) : super(
           MovieDetailsRoute.name,
@@ -157,9 +158,9 @@ class MovieDetailsRouteArgs {
     required this.movie,
   });
 
-  final _i8.Key? key;
+  final _i10.Key? key;
 
-  final _i10.Movie movie;
+  final _i11.Movie movie;
 
   @override
   String toString() {

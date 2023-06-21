@@ -12,26 +12,22 @@ import 'package:movie_app/src/localization/l10n/app_localizations.dart';
 import 'package:movie_app/src/routing/app_router.dart';
 import 'package:movie_app/src/utils/styles.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'utils/typography.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
-  MyApp({
-    super.key,
-    required this.appSettingsStore,
-  });
+  MyApp({super.key, this.prefs});
 
-  final AppStore appSettingsStore;
   final AppRouter _appRouter = AppRouter();
+  final SharedPreferences? prefs;
 
   @override
   Widget build(BuildContext context) {
-    // Glue the SettingsController to the MaterialApp.
-    //
-    // The AnimatedBuilder Widget listens to the SettingsController for changes.
-    // Whenever the user updates their settings, the MaterialApp is rebuilt.
     return MultiProvider(
         providers: [
-          Provider<SettingsService>(create: (_) => SettingsService()),
+          Provider<SettingsService>(create: (_) => SettingsService(prefs!)),
           ProxyProvider<SettingsService, AppStore>(
               update: (BuildContext context, SettingsService repo, __) {
             return AppStore(settingsService: repo);
@@ -49,8 +45,8 @@ class MyApp extends StatelessWidget {
           //   },
           // ),
         ],
-        child: Consumer(
-          builder: (BuildContext context, value, Widget? child) {
+        child: Consumer<AppStore>(
+          builder: (BuildContext context, AppStore store, Widget? child) {
             return Observer(
               builder: (BuildContext context) {
                 return MaterialApp.router(
@@ -67,13 +63,14 @@ class MyApp extends StatelessWidget {
                   onGenerateTitle: (BuildContext context) =>
                       S.of(context).appTitle,
                   theme: ThemeData(
+                      textTheme: textTheme,
                       useMaterial3: true,
                       colorScheme: ColorScheme.fromSeed(
                           seedColor: Platform.isIOS
                               ? AppColor.primary
                               : const Color.fromARGB(255, 31, 63, 150))),
                   darkTheme: ThemeData.dark(),
-                  themeMode: appSettingsStore.themeMode,
+                  themeMode: store.themeMode,
                   routeInformationParser: _appRouter.defaultRouteParser(),
                   routerDelegate: AutoRouterDelegate(
                     _appRouter,

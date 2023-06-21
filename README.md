@@ -1,30 +1,39 @@
 # movie_app
 
-A new Flutter project.
+Movies Application
 
-## Getting Started
+## Table of Contents
+- [movie\_app](#movie_app)
+  - [Table of Contents](#table-of-contents)
+  - [Overview](#overview)
+  - [Installation](#installation)
+  - [Usage](#usage)
+  - [Features](#features)
+  - [Contributing](#contributing)
 
-This project is a starting point for a Flutter application that follows the
-[simple app state management
-tutorial](https://flutter.dev/docs/development/data-and-backend/state-mgmt/simple).
+## Overview
+ mobile application developed using Flutter. It allows users to discover and explore a wide range of movies, view details, and save their favorites. The app leverages Firebase Auth for user authentication and Firebase Firestore to store favorite movies.
 
-For help getting started with Flutter development, view the
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+To install and run the app locally, follow these steps:
+- Clone the repository:
+git clone https://github.com/MiroMutti/movie-flutter-app.git
+diff
+Copy code
+- Install Flutter and necessary dependencies.
+- Run the app from main.g.dart:
+flutter run
+vbnet
+Copy code
 
-## Assets
+## Usage
+Upon launching the app, users are presented with a list of movies retrieved from an external API. They can browse the movies, view details, and save their favorite movies by tapping on the favorite button. Users need to authenticate using their Firebase credentials to access the favorite movies feature.
 
-The `assets` directory houses images, fonts, and any other files you want to
-include with your application.
+## Features
+- Fetches movie data from an external API via HTTP GET requests.
+- Displays a list of movies with relevant information.
+- Allows users to save movies as favorites using Firebase Auth for authentication.
+- Retrieves and displays the user's favorite movies from Firebase Firestore.
+- Provides a clean and intuitive user interface for seamless movie discovery.
 
-The `assets/images` directory contains [resolution-aware
-images](https://flutter.dev/docs/development/ui/assets-and-images#resolution-aware).
-
-## Localization
-
-This project generates localized messages based on arb files found in
-the `lib/src/localization` directory.
-
-To support additional languages, please visit the tutorial on
-[Internationalizing Flutter
-apps](https://flutter.dev/docs/development/accessibility-and-localization/internationalization)
+## Contributing
