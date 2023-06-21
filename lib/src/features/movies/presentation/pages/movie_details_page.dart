@@ -36,7 +36,7 @@ class MovieDetailsPage extends StatelessWidget {
                   ),
                   Gap(8),
                   Text(
-                    '(${movie.year})' ?? '',
+                    '(${movie.year})',
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                 ],
